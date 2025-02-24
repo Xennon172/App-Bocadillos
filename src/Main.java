@@ -15,8 +15,10 @@ public class Main {
 
     static Pedido pedido = new Pedido();
 
-    static Usuario usuario1 = new Usuario (1,"pacome", "Francisco", "francisco@elcampico.org", "1º DAW", new String[]{"gluten"}, LocalDate.of(1985, 8, 15), true, 3);
-    static Usuario[] arrayUsuarios = {usuario1};
+    static Usuario usuario1 = new Usuario (1,"Alumno", "Francisco", "1234","francisco@elcampico.org", "1º DAW", new String[]{"gluten"}, LocalDate.of(1985, 8, 15), true, 1);
+    static Usuario cocinero = new Usuario (2,"Cocina","Maria","1234", "maria@elcampico.org","",new String[]{"lacteos"}, LocalDate.of(1987, 3, 22),true,2);
+    static Usuario administrador = new Usuario (3, "Administrador","Carmen","1234" ,"carmen@elcampico.org","", new String[]{""},LocalDate.of(1985,3,12),false,3);
+    static Usuario[] arrayUsuarios = {usuario1,cocinero,administrador};
 
     public static void main(String[] args) {
         //usuario1.mostrarInfoUsuario();
