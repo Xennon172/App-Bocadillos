@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Menu {
 
     private Bocadillo[] arrayBocadillos;
+    private Usuario[] arrayUsuarios;
 
     public Menu () {
 
@@ -13,43 +14,62 @@ public class Menu {
     public Menu (Bocadillo[] arrayBocadillos){
         this.arrayBocadillos = arrayBocadillos;
     }
-
+/*
     public Bocadillo[] getArrayBocadillos() {
         return arrayBocadillos;
     }
 
     public void setArrayBocadillos(Bocadillo[] arrayBocadillos) {
         this.arrayBocadillos = arrayBocadillos;
+    }*/
+
+    public void menuLogin(Usuario[] arrayUsuarios) {
+        boolean loginCorrecto = false;
+        do {
+            Scanner entrada = new Scanner(System.in);
+            System.out.println("Introduce nombre usuario");
+            String nombre = entrada.nextLine().trim();
+            System.out.println("Introduce contraseña usuario");
+            String contrasena = entrada.nextLine().trim();
+            loginCorrecto = hacerLogin(nombre, contrasena, arrayUsuarios);
+        } while (!loginCorrecto);
     }
 
-    Scanner entrada = new Scanner(System.in);
+    public boolean hacerLogin(String nombre, String contrasena, Usuario[] arrayUsuarios) {
+        for(int i = 0; i <= arrayUsuarios.length; i++) {
+            if (nombre.equals(arrayUsuarios[i].getNombre()) && contrasena.equals(arrayUsuarios[i].getContrasena())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void menuInicial() {
+        Scanner entrada = new Scanner(System.in);
     String seleccion;
 
         do {
         System.out.println("=====================================");
         System.out.println("=      (*) APP BOCADILLOS (*)       =");
         System.out.println("=====================================");
-        System.out.println("             Bienvenido              ");
-        System.out.println("Selecciona un Rol: Alumno o Administrador ");
+        System.out.println("            ¡Bienvenido!             ");
+        System.out.println("Selecciona un Rol: Alumno, cocina o Administrador ");
         System.out.println("     1. Alumno");
-        System.out.println("     2. Administrador");
-        System.out.println("     3. Salir");
+        System.out.println("     2. Cocina");
+        System.out.println("     3. Administrador");
+        System.out.println("     4. Salir");
         System.out.println("=====================================");
         System.out.print("\n\tSelecciona una opción: ");
 
         seleccion = entrada.nextLine().trim();
         switch (seleccion) {
             case "1":
-                gestionarUsuarios();
+                menuAlumno();
                 break;
             case "2":
-                gestionarBocadillos(arrayBocadillos);
+                menuCocina();
                 break;
             case "3":
-                //realizarPedido();
-                break;
-            case "4":
-                consultarPedido();
+                gestionarUsuarios();
                 break;
             case "5":
                 System.out.println("=====================================");
@@ -57,55 +77,75 @@ public class Menu {
                 System.out.println("=====================================");
                 break;
             default:
-                System.out.println("Opcion no valida. Selecciona del 1 al 5.");
+                System.out.println("Opcion no valida. Selecciona del 1 al 4.");
         }
 
     } while (!seleccion.equals("5"));
         System.exit(0);
-}
+    }
 
-    public void menuInicial(Bocadillo[] arrayBocadillos) {
+    public void menuAlumno() {
         Scanner entrada = new Scanner(System.in);
         String seleccion;
-
-        do {
+        boolean salir = false;
+        while(!salir) {
             System.out.println("=====================================");
-            System.out.println("=      (*) APP BOCADILLOS (*)       =");
+            System.out.println("=               Alumno              =");
             System.out.println("=====================================");
-            System.out.println("     1. Gestionar Usuarios");
-            System.out.println("     2. Gestionar Bocadillos");
-            System.out.println("     3. Realizar Pedido");
-            System.out.println("     4. Consultar Pedido");
-            System.out.println("     5. Salir");
+            System.out.println("     1. Listar Bocadillos");
+            System.out.println("     2. Realizar Pedido");
+            System.out.println("     3. Volver al Menú.");
             System.out.println("=====================================");
             System.out.print("\n\tSelecciona una opción: ");
 
             seleccion = entrada.nextLine().trim();
+
             switch (seleccion) {
                 case "1":
-                    gestionarUsuarios();
-                    break;
-                case "2":
                     gestionarBocadillos(arrayBocadillos);
                     break;
-                case "3":
+                case "2":
                     //realizarPedido();
                     break;
-                case "4":
-                    consultarPedido();
-                    break;
-                case "5":
-                    System.out.println("=====================================");
-                    System.out.println("=         Hasta la próxima          =");
-                    System.out.println("=====================================");
+                case "3":
+                    salir = true;
                     break;
                 default:
-                    System.out.println("Opcion no valida. Selecciona del 1 al 5.");
+                    System.out.println("Opción no valida. Selecciona del 1 al 3.");
             }
 
-        } while (!seleccion.equals("5"));
-        System.exit(0);
+        }
     }
+
+    public void menuCocina() {
+        Scanner entrada = new Scanner(System.in);
+        String seleccion;
+        boolean salir = false;
+        while(!salir) {
+            System.out.println("=====================================");
+            System.out.println("=               Cocina              =");
+            System.out.println("=====================================");
+            System.out.println("     1. Consultar Pedidos.");
+            System.out.println("     2. Volver al Menú.");
+            System.out.println("=====================================");
+            System.out.print("\n\tSelecciona una opción: ");
+
+            seleccion = entrada.nextLine().trim();
+
+            switch (seleccion) {
+                case "1":
+                    gestionarBocadillos(arrayBocadillos);
+                    break;
+                case "2":
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción no valida. Selecciona del 1 al 2.");
+            }
+
+        }
+    }
+
 
     public void gestionarUsuarios(){
 
@@ -141,6 +181,7 @@ public class Menu {
 
     }
 
+
     public void gestionarBocadillos(Bocadillo[] arrayBocadillos) {
         Scanner entrada = new Scanner(System.in);
         String seleccion;
@@ -151,9 +192,9 @@ public class Menu {
             System.out.println("=====================================");
             System.out.println("     1. Listar Bocadillos");
             System.out.println("     2. Ver Curiosidades de un Bocadillo");
-            System.out.println("     2. Ver Ingredientes de un Bocadillo");
-            System.out.println("     2. Ver Alergenos de un Bocadillo");
-            System.out.println("     3. Volver al Menú.");
+            System.out.println("     3. Ver Ingredientes de un Bocadillo");
+            System.out.println("     4. Ver Alergenos de un Bocadillo");
+            System.out.println("     5. Volver al Menú.");
             System.out.println("=====================================");
             System.out.print("\n\tSelecciona una opción: ");
 
@@ -260,7 +301,11 @@ public class Menu {
         }
     }
 
-
+    /**
+     *
+     * @param arrayUsuarios
+     * @param pedido
+     */
     public void seleccionarUsuario(Usuario[] arrayUsuarios, Pedido pedido) {
         Scanner scanner = new Scanner(System.in);
         listarUsuarios(arrayUsuarios);

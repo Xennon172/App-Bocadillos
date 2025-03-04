@@ -16,14 +16,17 @@ public class Usuario {
 
     private LocalDate fechaNacimiento;
 
+    private String contrasena;
+
     private int rol;
 
     private boolean esAlergico;
 
-    public Usuario(int id, String usuario, String nombre, String correo, String curso, String[] alergia, LocalDate fechaNacimiento, boolean esAlergico, int rol) {
+    public Usuario(int id, String usuario, String nombre, String contrasena, String correo, String curso, String[] alergia, LocalDate fechaNacimiento, boolean esAlergico, int rol) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
+        this.contrasena = contrasena;
         this.correo = correo;
         this.curso = curso;
         this.alergia = alergia;
@@ -32,11 +35,18 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public String getContrasena() {
+        return contrasena;
+    }
+    public void  setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     public int getId() {
         return id;
     }
 
-    public void setId() {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -115,5 +125,7 @@ public class Usuario {
         System.out.println("Rol: "+ rol);
 
     }
+
+
 
 }
