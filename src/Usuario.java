@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Usuario {
 
@@ -8,11 +9,15 @@ public class Usuario {
 
     private String nombre;
 
+    private String apellido;
+
     private String correo;
 
     private String curso;
 
-    private  String[] alergia;
+    private String dni;
+
+    private String[] alergias;
 
     private LocalDate fechaNacimiento;
 
@@ -22,14 +27,18 @@ public class Usuario {
 
     private boolean esAlergico;
 
-    public Usuario(int id, String usuario, String nombre, String contrasena, String correo, String curso, String[] alergia, LocalDate fechaNacimiento, boolean esAlergico, int rol) {
+    public Usuario () {
+
+    }
+
+    public Usuario(int id, String usuario, String nombre, String contrasena, String correo, String curso, ArrayList<String> alergias, LocalDate fechaNacimiento, boolean esAlergico, int rol) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.correo = correo;
         this.curso = curso;
-        this.alergia = alergia;
+        this.alergias = alergias;
         this.fechaNacimiento = fechaNacimiento;
         this.esAlergico = esAlergico;
         this.rol = rol;
@@ -66,12 +75,32 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public boolean isEsAlergico() {
+        return esAlergico;
+    }
+
     public String getCorreo() {
         return correo;
     }
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getCurso() {
@@ -82,12 +111,12 @@ public class Usuario {
         this.curso = curso;
     }
 
-    public String[] getAlergia() {
-        return alergia;
+    public ArrayList<String> getAlergias() {
+        return alergias;
     }
 
-    public void setAlergia(String[] alergia) {
-        this.alergia = alergia;
+    public void setAlergias(ArrayList<String> alergias) {
+        this.alergias = alergias;
     }
 
     public LocalDate getFechaNacimiento() {
@@ -117,12 +146,20 @@ public class Usuario {
     public void mostrarInfoUsuario () {
         System.out.println("Usuario: " + usuario);
         System.out.println("Nombre: " + nombre);
+        System.out.println("Apellido: " + apellido);
         System.out.println("Correo: " + correo);
         System.out.println("Curso: "+ curso);
-        System.out.println("¿Eres Alergico?: " + esAlergico);
-        System.out.println("Alergia: "+ alergia);
         System.out.println("Fecha de Nacimimento :" + fechaNacimiento);
         System.out.println("Rol: "+ rol);
+        System.out.println("¿Eres Alergico?: " + esAlergico);
+        System.out.println("Alergias:");
+        for(int i = 0; i < alergias.size(); i++) {
+            System.out.println(i+1 + " " + alergias.get(i));
+        }
+
+
+        // Solo para testeo
+        System.out.println("SOLO TEST Contraseña: " + contrasena);
 
     }
 
