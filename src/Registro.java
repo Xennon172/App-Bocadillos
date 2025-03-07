@@ -6,33 +6,25 @@ import java.util.Scanner;
 public class Registro {
 
     static String usuario_registrado, nombre_registrado, apellido_registrado, email_registrado,
-            dni_registrado, fecha_registrada, contrasena_registrada1, respuesta_seguridad;
+            dni_registrado, contrasena_registrada1, respuesta_seguridad;
 
     static boolean bloqueado = false;
     static boolean registrado = false;
 
     static Validaciones validaciones = new Validaciones();
     static Usuario usuario = new Usuario();
+    static Calendario calendario = new Calendario();
 
     public Registro () {
 
     }
-    /**
-     * Método principal que inicia el programa
-     */
-    /**
-     *
-     * @param args
-     */
 
-    /** Método es el menú principal donde el usuario elige las opciones a realizar en el programa.
-     */
     public void menu() {
         Scanner entrada = new Scanner(System.in);
         String seleccion;
         boolean salir = false;
 
-        while (!salir){
+        do {
             System.out.println("=====================================");
             System.out.println("=          GESTIÓN USUARIOS           =");
             System.out.println("=====================================");
@@ -61,8 +53,7 @@ public class Registro {
                 default:
                     System.out.println("Opcion no valida. Selecciona del 1 al 5.");
             }
-        }
-        System.exit(0);
+        } while (!salir);
     }
 
     /**
@@ -180,6 +171,9 @@ public class Registro {
         System.out.println("=             REGISTRO              =");
         System.out.println("=====================================");
 
+
+
+
         do {
             System.out.println("Introduce USUARIO (mínimo 5 caracteres):");
             Scanner escaner_usuario = new Scanner(System.in);
@@ -237,26 +231,36 @@ public class Registro {
 
         usuario.setDni(dni_registrado);
 
-        String diaStr = "";
-        String mesStr = "";
-        String anoStr = "";
+        String dia_str = "";
+        String mes_str = "";
+        String ano_str = "";
+        LocalDate fecha_registrada;
         do {
             System.out.println("Introduce tu fecha de nacimiento");
-            System.out.println("Día: ");
-            Scanner entrada_dia = new Scanner(System.in);
-            diaStr = entrada_dia.nextLine();
-            System.out.println("Mes: ");
-            Scanner entrada_mes = new Scanner(System.in);
-            mesStr = entrada_mes.nextLine();
-            System.out.println("Año: ");
-            Scanner entrada_ano = new Scanner(System.in);
-            anoStr = entrada_ano.nextLine();
+            do {
+                System.out.println("Día: ");
+                Scanner entrada_dia = new Scanner(System.in);
+                dia_str = entrada_dia.nextLine();
+            } while(!validaciones.validar_dia_mes(dia_str));
 
-            fecha_registrada = diaStr + "/" + mesStr + "/" + anoStr;
+            do {
+                System.out.println("Mes: ");
+                Scanner entrada_mes = new Scanner(System.in);
+                mes_str = entrada_mes.nextLine();
+            } while(!validaciones.validar_dia_mes(mes_str));
 
-        } while (!validaciones.validar_fecha(diaStr, mesStr, anoStr) || fecha_registrada.isEmpty());
+            do {
+                System.out.println("Año: ");
+                Scanner entrada_ano = new Scanner(System.in);
+                ano_str = entrada_ano.nextLine();
+            } while(!validaciones.validar_ano(ano_str));
 
-        usuario.setFechaNacimiento(formatearFecha(fecha_registrada));
+
+            fecha_registrada = LocalDate.of(Integer.parseInt(ano_str), Integer.parseInt(mes_str), Integer.parseInt(dia_str));
+
+        } while (!validaciones.validar_fecha(dia_str, mes_str, ano_str));
+
+        usuario.setFechaNacimiento(fecha_registrada);
 
         do {
             Scanner entrada_rol = new Scanner(System.in);
@@ -271,11 +275,11 @@ public class Registro {
                     usuario.setRol(Integer.valueOf(rol_seleccionado));
                     break;
                 case "2":
-                    System.out.println("Admin seleccionado");
+                    System.out.println("Cocina seleccionado");
                     usuario.setRol(Integer.valueOf(rol_seleccionado));
                     break;
                 case "3":
-                    System.out.println("Admin seleccionado");
+                    System.out.println("Alumno seleccionado");
                     usuario.setRol(Integer.valueOf(rol_seleccionado));
                     break;
                 default:
@@ -290,21 +294,44 @@ public class Registro {
         if (usuario.getRol() == 3) {
             ArrayList<String> alergias = new ArrayList<>();
             boolean salir = false;
+            boolean es_alergico = false;
             do {
-                System.out.println("Añade alergias: ");
-                System.out.println("(pulsa 0 para salir)");
-                Scanner entrada = new Scanner(System.in);
-                String alergia = entrada.nextLine();
-                if(!alergia.equals("0")) {
-                    alergias.add(alergia);
-                } else {
-                    salir = true;
+                System.out.println("¿Es alérgico?");
+                System.out.println("1. Si");
+                System.out.println("2. No");
+                Scanner entrada1 = new Scanner(System.in);
+                String seleccion = entrada1.nextLine();
+                switch (seleccion) {
+                    case "1":
+                        es_alergico = true;
+                        salir = true;
+                        break;
+                    case "2":
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Respuesta no válida, inténtalo de nuevo.");
+
                 }
             } while (!salir);
-            usuario.setAlergias(alergias);
-        }
 
-        usuario.mostrarInfoUsuario();
+            // Si es alérgico va a entrar al bucle
+            salir = false;
+            if (es_alergico) {
+                do {
+                    System.out.println("Añade alergias: ");
+                    System.out.println("(pulsa 0 para salir)");
+                    Scanner entrada = new Scanner(System.in);
+                    String alergia = entrada.nextLine();
+                    if (!alergia.equals("0")) {
+                        alergias.add(alergia);
+                    } else {
+                        salir = true;
+                    }
+                } while (!salir);
+                usuario.setAlergias(alergias);
+            }
+        }
 
         boolean color_validado = false;
         do {
@@ -329,24 +356,9 @@ public class Registro {
 
         } while (!color_validado);
 
-        do {
-            captcha_generado = validaciones.generar_captcha();
-            System.out.println("CAPTCHA: " + captcha_generado);
-            System.out.println("Inserta el captcha:");
-            Scanner escaner_captcha = new Scanner(System.in);
-            captcha_usuario = escaner_captcha.nextLine().trim();
-            if (!validaciones.validar_captcha(captcha_generado, captcha_usuario)) {
-                System.out.println("Captcha incorrecto");
-                intentos++;
-            } else {
-                System.out.println("USUARIO REGISTRADO!");
-                registrado = true;
-            }
-            if (intentos == 3) {
-                System.out.println("\n\t Has fallado 3 veces completando el captcha, eres un bot?.");
-                break;
-            }
-        } while (!validaciones.validar_captcha(captcha_generado, captcha_usuario));
+        usuario.setRespuesta_seguridad(respuesta_seguridad);
+
+        usuario.mostrar_info();
     }
 
     /**
@@ -418,16 +430,7 @@ public class Registro {
     }
 
 
-    public static LocalDate formatearFecha(String fecha) {
-            // Revisar formatter por que fecha quizas no lo necesite en localdate
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate localDate = LocalDate.parse(fecha, formatter);
-
-            System.out.println("Fecha convertida: " + localDate.format(formatter));
-
-            return localDate;
-        }
 
 
 

@@ -1,30 +1,6 @@
-import java.util.Scanner;
-
 public class Validaciones {
     public Validaciones() {
 
-    }
-    /**
-     * Genera un número aleatorio de 4 dígitos como captcha.
-     *
-     * @return un número entero aleatorio de 4 dígitos.
-     */
-    public int generar_captcha() {
-        return 1000 + (int) (Math.random() * 9000);
-    }
-
-    /**
-     * Válida si el captcha introducido coincide con el generado.
-     *
-     * @param captcha_generado el captcha generado.
-     * @param captcha_usuario el captcha ingresado por el usuario.
-     * @return true si el captcha es válido, false en caso contrario.
-     */
-    public boolean validar_captcha(int captcha_generado, String captcha_usuario) {
-        if (!captcha_usuario.equals(String.valueOf(captcha_generado))) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -131,6 +107,38 @@ public class Validaciones {
         return true;
     }
 
+
+    // Valida que día y mes solo contengan 2 dígitos y sean numéricos
+    public boolean validar_dia_mes(String mes_str) {
+        if (mes_str.length() > 2) {
+            System.out.println("Valor INCORRECTO, el límite son dos dígitos.");
+            return false;
+        }
+        for (int i = 0; i < mes_str.length(); i++) {
+            char letra = mes_str.charAt(i);
+            if (!es_numero(letra)) {
+                System.out.println("Valor INCORRECTO,  inserta solo números.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validar_ano(String ano_str) {
+        if (ano_str.length() != 4) {
+            System.out.println("Valor INCORRECTO, introduce 4 digitos.");
+            return false;
+        }
+        for (int i = 0; i < ano_str.length(); i++) {
+                char letra = ano_str.charAt(i);
+                if (!es_numero(letra)) {
+                    System.out.println("Valor INCORRECTO,  inserta solo números.");
+                    return false;
+                }
+        }
+        return true;
+    }
+
     /**
      * Solicita y comprueba la fecha de nacimiento del usuario.
      *
@@ -138,67 +146,9 @@ public class Validaciones {
      */
     public Boolean validar_fecha(String dia_str, String mes_str, String ano_str) {
 
-        boolean validador = false;
-        int dia = 0;
-        int mes = 0;
-        int ano = 0;
-
-        do {
-            for (int i = 0; i < dia_str.length(); i++) {
-                char letra = dia_str.charAt(i);
-                if (!es_numero(letra)) {
-                    validador = false;
-                    System.out.println("Valor INCORRECTO, inserta solo números.");
-                    break;
-                } else if (dia_str.length() > 2) {
-                    validador = false;
-                    System.out.println("Valor INCORRECTO, el limite son dos digitos");
-                    break;
-                }
-                validador = true;
-            }
-            if (validador) {
-                dia = Integer.parseInt(dia_str);
-            }
-        } while (!validador);
-
-        do {
-            for (int i = 0; i < mes_str.length(); i++) {
-                char letra = mes_str.charAt(i);
-                if (!es_numero(letra)) {
-                    validador = false;
-                    System.out.println("Valor INCORRECTO,  inserta solo números.");
-                    break;
-                } else if (mes_str.length() > 2) {
-                    validador = false;
-                    System.out.println("Valor INCORRECTO, el limite son dos digitos");
-                    break;
-                }
-                validador = true;
-            }
-            if (validador) {
-                mes = Integer.parseInt(mes_str);
-            }
-        } while (!validador);
-
-        do {
-            for (int i = 0; i < ano_str.length(); i++) {
-                char letra = ano_str.charAt(i);
-                if (!es_numero(letra)) {
-                    validador = false;
-                    System.out.println("Valor INCORRECTO,  inserta solo números.");
-                    break;
-                } else if (ano_str.length() != 4) {
-                    validador = false;
-                    System.out.println("Valor INCORRECTO, introduce 4 digitos.");
-                    break;
-                }
-                validador = true;
-            }
-            if (validador) {
-                ano = Integer.parseInt(ano_str);
-            }
-        } while (!validador);
+        int dia = Integer.parseInt(dia_str);
+        int mes = Integer.parseInt(mes_str);
+        int ano = Integer.parseInt(ano_str);
 
         // Validamos mes
         int dias_mes;
@@ -349,4 +299,5 @@ public class Validaciones {
         }
         return true;
     }
+
 }
