@@ -1,7 +1,7 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Registro {
 
@@ -56,107 +56,7 @@ public class Registro {
         } while (!salir);
     }
 
-    /**
-     * Método que gestiona el proceso de login del usuario.
-     */
-//    public static void login() {
-//        Scanner entrada = new Scanner(System.in);
-//        String seleccion;
-//        int captcha_generado;
-//        String captcha_usuario;
-//        int intentos_captcha = 0;
-//        int intentos_login = 0;
-//        boolean login_correcto = false;
-//        boolean salir = false;
-//
-//        if (!registrado) {
-//            System.out.println("No hay usuarios registrados");
-//
-//            while (!salir) {
-//                System.out.println("=====================================");
-//                System.out.println("=       Selecciona una opción       =");
-//                System.out.println("=====================================");
-//                System.out.println("     1. ¿Ir a registro?");
-//                System.out.println("     2. Volver a menú");
-//                System.out.println("=====================================");
-//                System.out.print("\n\tSelecciona una opción: ");
-//
-//                seleccion = entrada.nextLine().trim();
-//
-//                switch (seleccion) {
-//                    case "1":
-//                        registro();
-//                        break;
-//                    case "2":
-//                        salir = true;
-//                        break;
-//                    default:
-//                        System.out.println("Opcion no valida. Selecciona del 1 al 2.");
-//                }
-//            }
-//        }
-//        comprobar_bloqueo();
-//        do {
-//            System.out.println("=====================================");
-//            System.out.println("=               LOGIN               =");
-//            System.out.println("=====================================");
-//            System.out.println("Ingresa tu nombre de usuario:");
-//            Scanner nombre = new Scanner(System.in);
-//            String usuario = nombre.nextLine();
-//            System.out.println("Ingresa tu contraseña:");
-//            Scanner contrasena = new Scanner(System.in);
-//            String contrasena_usuario = contrasena.nextLine().trim();
-//
-//            do {
-//                captcha_generado = validaciones.generar_captcha();
-//                System.out.println("CAPTCHA: " + captcha_generado);
-//                System.out.println("Inserta el captcha:");
-//                Scanner escaner_captcha = new Scanner(System.in);
-//                captcha_usuario = escaner_captcha.nextLine().trim();
-//
-//                if (!validaciones.validar_captcha(captcha_generado, captcha_usuario)) {
-//                    System.out.println("Captcha incorrecto");
-//                    intentos_captcha++;
-//                } else {
-//                    registrado = true;
-//                }
-//
-//                if (intentos_captcha == 3) {
-//                    System.out.println("\n\t Has fallado 3 veces completando el captcha, ¿eres un bot?.\n USUARIO BLOQUEADO");
-//                    bloqueado = true;
-//                    //menu();
-//                }
-//
-//
-//            } while (!validaciones.validar_captcha(captcha_generado, captcha_usuario));
-//
-//
-//            if (usuario.equalsIgnoreCase(usuario_registrado) && contrasena_usuario.equals(contrasena_registrada1)) {
-//                System.out.println("Login Correcto." + "\n ¡Bienvenido " + usuario + "!");
-//                System.out.println("\t    **     **  ");
-//                System.out.println("\t  *****   *****");
-//                System.out.println("\t  *************");
-//                System.out.println("\t   *********** ");
-//                System.out.println("\t    *********  ");
-//                System.out.println("\t     *******   ");
-//                System.out.println("\t      *****    ");
-//                System.out.println("\t       ***     ");
-//                System.out.println("\t        *      ");
-//                login_correcto = true;
-//            } else {
-//                intentos_login++;
-//                System.out.println("ERROR. Usuario o contraseña incorrectos.\n"
-//                        + "(Asegurate que los datos sean correctos antes de introducilos)");
-//            }
-//
-//        } while (intentos_login < 3 && !login_correcto);
-//
-//        if (!login_correcto) {
-//            System.out.println("\n\t HAS FALLADO 3 VECES, ¿DE VERDAD?...\n USUARIO BLOQUEADO");
-//            bloqueado = true;
-//            //menu();
-//        }
-//    }
+
 
     /**
      * Método que se encarga del registro de usuario.
@@ -361,6 +261,8 @@ public class Registro {
         usuario.mostrar_info();
     }
 
+
+
     /**
      * Método para recuperar la contraseña o desbloquear un usuario.
      *
@@ -428,6 +330,108 @@ public class Registro {
             //recuperacion(false);
         }
     }
+
+    /**
+     * Método que gestiona el proceso de login del usuario.
+     */
+//    public static void login() {
+//        Scanner entrada = new Scanner(System.in);
+//        String seleccion;
+//        int captcha_generado;
+//        String captcha_usuario;
+//        int intentos_captcha = 0;
+//        int intentos_login = 0;
+//        boolean login_correcto = false;
+//        boolean salir = false;
+//
+//        if (!registrado) {
+//            System.out.println("No hay usuarios registrados");
+//
+//            while (!salir) {
+//                System.out.println("=====================================");
+//                System.out.println("=       Selecciona una opción       =");
+//                System.out.println("=====================================");
+//                System.out.println("     1. ¿Ir a registro?");
+//                System.out.println("     2. Volver a menú");
+//                System.out.println("=====================================");
+//                System.out.print("\n\tSelecciona una opción: ");
+//
+//                seleccion = entrada.nextLine().trim();
+//
+//                switch (seleccion) {
+//                    case "1":
+//                        registro();
+//                        break;
+//                    case "2":
+//                        salir = true;
+//                        break;
+//                    default:
+//                        System.out.println("Opcion no valida. Selecciona del 1 al 2.");
+//                }
+//            }
+//        }
+//        comprobar_bloqueo();
+//        do {
+//            System.out.println("=====================================");
+//            System.out.println("=               LOGIN               =");
+//            System.out.println("=====================================");
+//            System.out.println("Ingresa tu nombre de usuario:");
+//            Scanner nombre = new Scanner(System.in);
+//            String usuario = nombre.nextLine();
+//            System.out.println("Ingresa tu contraseña:");
+//            Scanner contrasena = new Scanner(System.in);
+//            String contrasena_usuario = contrasena.nextLine().trim();
+//
+//            do {
+//                captcha_generado = validaciones.generar_captcha();
+//                System.out.println("CAPTCHA: " + captcha_generado);
+//                System.out.println("Inserta el captcha:");
+//                Scanner escaner_captcha = new Scanner(System.in);
+//                captcha_usuario = escaner_captcha.nextLine().trim();
+//
+//                if (!validaciones.validar_captcha(captcha_generado, captcha_usuario)) {
+//                    System.out.println("Captcha incorrecto");
+//                    intentos_captcha++;
+//                } else {
+//                    registrado = true;
+//                }
+//
+//                if (intentos_captcha == 3) {
+//                    System.out.println("\n\t Has fallado 3 veces completando el captcha, ¿eres un bot?.\n USUARIO BLOQUEADO");
+//                    bloqueado = true;
+//                    //menu();
+//                }
+//
+//
+//            } while (!validaciones.validar_captcha(captcha_generado, captcha_usuario));
+//
+//
+//            if (usuario.equalsIgnoreCase(usuario_registrado) && contrasena_usuario.equals(contrasena_registrada1)) {
+//                System.out.println("Login Correcto." + "\n ¡Bienvenido " + usuario + "!");
+//                System.out.println("\t    **     **  ");
+//                System.out.println("\t  *****   *****");
+//                System.out.println("\t  *************");
+//                System.out.println("\t   *********** ");
+//                System.out.println("\t    *********  ");
+//                System.out.println("\t     *******   ");
+//                System.out.println("\t      *****    ");
+//                System.out.println("\t       ***     ");
+//                System.out.println("\t        *      ");
+//                login_correcto = true;
+//            } else {
+//                intentos_login++;
+//                System.out.println("ERROR. Usuario o contraseña incorrectos.\n"
+//                        + "(Asegurate que los datos sean correctos antes de introducilos)");
+//            }
+//
+//        } while (intentos_login < 3 && !login_correcto);
+//
+//        if (!login_correcto) {
+//            System.out.println("\n\t HAS FALLADO 3 VECES, ¿DE VERDAD?...\n USUARIO BLOQUEADO");
+//            bloqueado = true;
+//            //menu();
+//        }
+//    }
 
 
 

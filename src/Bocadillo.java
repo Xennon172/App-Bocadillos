@@ -107,8 +107,8 @@ public class Bocadillo {
         System.out.println("Id: "+ id);
         System.out.println("Nombre: "+ nombre);
         System.out.println("Descripcion: "+ descripcion);
-        System.out.println("Ingredientes: "+ Arrays.toString(ingredientes));
-        System.out.println("Alergenos: "+ Arrays.toString(alergenos));
+        mostrarIngredientes();
+        mostrarAlergenos();
         System.out.println("Ciudad Popular: "+ ciudad_popular);
         System.out.println("Curiosidad: "+ curiosidad);
         System.out.println("Precio: "+ precio + " euros");
@@ -116,12 +116,22 @@ public class Bocadillo {
         System.out.println("=============================================");
     }
 
-    public String mostrarIngredientes() {
-        return Arrays.toString(this.ingredientes);
+    public void mostrarIngredientes() {
+        if(ingredientes!=null){
+            System.out.println("INGREDIENTES: ");
+            for(int i=0; i<ingredientes.length;i++){
+                System.out.println("  * " + ingredientes[i]);
+            }
+        }
     }
 
-    public String mostrarAlergenos(){
-        return Arrays.toString(this.alergenos);
+    public void mostrarAlergenos() {
+        if (alergenos != null) {
+            System.out.println("Alergenos: ");
+            for (int i = 0; i < alergenos.length; i++) {
+                System.out.println(" * " + alergenos[i]);
+            }
+        }
     }
 
     public Bocadillo[] inicializar_bocadillos(){
